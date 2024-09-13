@@ -1,0 +1,165 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="vik1.css">
+    <title>This is a Login and Registration link</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Login</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group">
+                <input type="text" class="input-field" placeholder="User ID" required>
+                <input type="password" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="check-box"><span>Remember me</span>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <form id="register" class="input-group">
+                <input type="text" id="name" class="input-field" placeholder="User ID" required>
+                <input type="email" id="email" class="input-field" placeholder="Email ID" required>
+                <input type="password" id="password" class="input-field" placeholder="Password" required>
+                <input type="password" class="input-field" placeholder="Confirm your password" required>
+                <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+
+        login(); // Initializes the login form as the default view
+        document.getElementById('register').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:5002/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await response.json();
+        if (data.message === 'User registered successfully') {
+            alert('Registration successful!');
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during registration.');
+    }
+});
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="vik1.css">
+    <title>Login and Registration</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Login</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group">
+                <input type="text" class="input-field" placeholder="User ID" required>
+                <input type="password" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="check-box"><span>Remember me</span>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <form id="register" class="input-group">
+                <input type="text" id="username" class="input-field" placeholder="User ID" required>
+                <input type="email" id="email" class="input-field" placeholder="Email ID" required>
+                <input type="password" id="password" class="input-field" placeholder="Password" required>
+                <input type="password" id="confirm-password" class="input-field" placeholder="Confirm Password" required>
+                <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+
+        login(); // Initializes the login form as the default view
+
+        // Registration form submission
+        document.getElementById('register').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Client-side validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5002/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+                if (data.message === 'User registered successfully') {
+                    alert('Registration successful!');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during registration.');
+            }
+        });
+    </script>
+</body>
+</html>
+
